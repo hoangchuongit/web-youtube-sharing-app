@@ -1,0 +1,12 @@
+version: "4.5"
+services:
+  nestapp:
+    container_name: web-youtube-sharing-app
+    image: web-youtube-sharing-app/nextjs
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    build: .
+    ports:
+      - 3000:3000
