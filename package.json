@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --config ./.prettierrc --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --config ./.prettierrc --write \"src/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --detectOpenHandles --watch",
     "test:cov": "jest --coverage",
@@ -18,12 +18,16 @@
   },
   "dependencies": {
     "axios": "^1.6.8",
+    "commitlint": "^19.2.1",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-toastify": "^10.0.5",
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
     "@types/jest": "^29.5.12",
