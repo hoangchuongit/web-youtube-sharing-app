@@ -1,12 +1,28 @@
 'use client';
 import usePosts from '@/hooks/usePosts';
 import useWindowSize from '@/hooks/useWindowSize';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PostsListItem from './PostsListItem';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { DEFAULT_MAX_PER_PAGE, DEFAULT_PAGE } from '@/constants/common';
 
 const PostsList = () => {
-  const { posts } = usePosts();
   const size = useWindowSize();
+
+  const [page, setPage] = useState(DEFAULT_PAGE);
+  const { postList, hasListMore } = usePosts({
+    page,
+    perPage: DEFAULT_MAX_PER_PAGE,
+  });
+
+  useEffect(() => {
+    // TODO: Loading more Page here
+  }, [page]);
+
+  const nextHandle = () => {
+    const newPage = page + 1;
+    setPage(newPage);
+  };
 
   let iframeHeight = '250';
   let iframeWidth = '450';
@@ -17,11 +33,40 @@ const PostsList = () => {
   }
 
   return (
+    // <InfiniteScroll
+    //   dataLength={postList.length}
+    //   next={nextHandle}
+    //   hasMore={hasListMore}
+    //   loader={
+    //     <div className="text-center">
+    //       <img
+    //         className="mx-auto h-20 lg:h-32"
+    //         src={'images/loading.gif'}
+    //         alt={'Loading icon'}
+    //       />
+    //       <p className="text-lg text-gray-800 tracking-wide text-center">
+    //         Loading more posts
+    //       </p>
+    //     </div>
+    //   }
+    //   endMessage={
+    //     <p className="text-lg text-gray-800 tracking-wide text-center">
+    //       <b>Yay! You have seen it all</b>
+    //     </p>
+    //   }
+    // >
     <div className="max-w-7xl mx-auto">
-      {posts.map((post) => (
+      {postList.map((post) => (
         <PostsListItem key={post.id} post={post} />
       ))}
+
+      {postList.length === 0 && (
+        <p className="text-lg text-gray-800 tracking-wide text-center">
+          <b>No shared video available. Please login to share new video</b>
+        </p>
+      )}
     </div>
+    // </InfiniteScroll>
   );
 };
 

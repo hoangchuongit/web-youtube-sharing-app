@@ -1,22 +1,37 @@
 import { config } from '@/constants/config';
 import { apiClientBrowser } from './base.service';
-import { Post, PostFilterParams } from '@/types/posts.type';
+import { FetchPostsResponse, Post, PostFilterParams } from '@/types/posts.type';
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@/constants/common';
 
 const postsApiPath = `${config.apiBaseUrl}/posts`;
 
-export async function fetchPosts(filter?: PostFilterParams): Promise<Post[]> {
+export async function fetchPosts(
+  filter?: PostFilterParams,
+): Promise<FetchPostsResponse> {
   try {
     const res = await apiClientBrowser.get(`${postsApiPath}`, {
-      params: filter,
+      params: {
+        page: filter?.page || DEFAULT_PAGE,
+        perPage: filter?.perPage || DEFAULT_PER_PAGE,
+      },
     });
 
-    let result: Post[] = [];
+    const hasMore = res?.data?.hasMore || false;
+    let posts: Post[] = [];
+
     if (res?.data?.items) {
-      result = res?.data.items;
+      posts = res?.data.items;
     }
-    return result;
+
+    return {
+      posts,
+      hasMore,
+    };
   } catch (err) {
     console.error(err);
-    return [];
+    return {
+      posts: [],
+      hasMore: false,
+    };
   }
 }

@@ -3,17 +3,25 @@ import { useEffect, useState } from 'react';
 import { config } from '@/constants/config';
 import { NEW_SHARED_VIDEO } from '@/constants/socket';
 import { fetchPosts } from '@/services/posts.service';
-import { Post } from '@/types/posts.type';
+import { Post, PostFilterParams } from '@/types/posts.type';
 import { Bounce, toast } from 'react-toastify';
+import { uniqBy } from 'lodash';
 
 const socket = io(config.apiBaseUrl as string);
 
-const usePosts = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+const usePosts = ({ page, perPage }: PostFilterParams) => {
+  const [postList, setPostList] = useState<Post[]>([]);
+  const [hasListMore, setHasListMore] = useState<boolean>(false);
 
   const getAllPosts = async () => {
-    const response = await fetchPosts({ page: 1, perPage: 10 });
-    setPosts(response);
+    const { posts, hasMore } = await fetchPosts({ page, perPage });
+
+    setPostList((prevPostList) => {
+      let newPostList = [...posts, ...prevPostList];
+      newPostList = uniqBy(newPostList, 'id');
+      return newPostList;
+    });
+    setHasListMore(hasMore);
   };
 
   //   responseable to fetch intital data through api.
@@ -47,7 +55,8 @@ const usePosts = () => {
   }, []);
 
   return {
-    posts,
+    postList,
+    hasListMore,
   };
 };
 

@@ -17,11 +17,14 @@
     "prepare": "test -d node_modules/husky && husky install || echo \"husky is not installed\""
   },
   "dependencies": {
+    "@types/lodash": "^4.17.0",
     "axios": "^1.6.8",
     "commitlint": "^19.2.1",
+    "lodash": "^4.17.21",
     "next": "14.1.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-toastify": "^10.0.5",
     "socket.io-client": "^4.7.5"
   },

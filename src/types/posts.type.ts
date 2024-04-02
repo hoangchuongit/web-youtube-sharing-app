@@ -17,3 +17,8 @@ export interface PostFilterParams {
   page: number;
   perPage: number;
 }
+
+export interface FetchPostsResponse {
+  posts: Post[];
+  hasMore: boolean;
+}
