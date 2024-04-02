@@ -1,5 +1,5 @@
 import { config } from '@/constants/config';
-import { apiClientBrowser } from './base.service';
+import { apiClientBrowser, handleException } from './base.service';
 import { AuthResponse, LoginParams, RegisterParams } from '@/types/auth.type';
 
 const authApiPath = `${config.apiBaseUrl}/auth`;
@@ -21,7 +21,7 @@ export async function login({
 
     return res?.data;
   } catch (err) {
-    console.error(err);
+    handleException(err);
     return {
       access_token: '',
       refresh_token: '',
@@ -34,7 +34,6 @@ export async function registerUser(
   params: RegisterParams,
 ): Promise<AuthResponse> {
   try {
-    console.log(params);
     const res = await apiClientBrowser.post(`${authApiPath}/register`, params);
 
     if (!res?.data) {
@@ -43,8 +42,8 @@ export async function registerUser(
     }
 
     return res?.data;
-  } catch (err) {
-    console.error(err);
+  } catch (err: any) {
+    handleException(err);
     return {
       access_token: '',
       refresh_token: '',

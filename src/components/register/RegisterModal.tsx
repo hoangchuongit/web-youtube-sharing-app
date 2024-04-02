@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@nextui-org/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { MailIcon } from '../ui/MailIcon';
 import { EyeSlashFilledIcon } from '../ui/EyeSlashFilledIcon';
 import { EyeFilledIcon } from '../ui/EyeFilledIcon';
@@ -17,6 +17,9 @@ import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../auth/AuthModal.css';
+import { registerUser } from '@/services/auth.service';
+import { saveAuth } from '@/cookies/user.cookies';
+import { AuthContext } from '@/contexts/auth-context';
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -29,8 +32,11 @@ const RegisterModal = ({
   onOpenChange,
   onClose,
 }: RegisterModalProps) => {
+  const { setIsAuthenticated } = useContext(AuthContext);
+
   const [isVisible, setIsVisible] = React.useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = React.useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const formSchema = Yup.object().shape({
     email: Yup.string()
@@ -48,11 +54,7 @@ const RegisterModal = ({
       .max(50, 'Last name must not exceed 50 characters'),
     password: Yup.string()
       .required('Password is required')
-      .min(8, 'Password must be at 8 char long')
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$/g,
-        'Password must contain min 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character',
-      ),
+      .min(8, 'Password must be at 8 char long'),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref('password')],
       'Passwords does not match',
@@ -76,8 +78,22 @@ const RegisterModal = ({
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible);
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-    onRegisterClose(false);
+    setIsFetching(true);
+
+    const res = await registerUser({
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      password: data.password,
+    });
+
+    setIsFetching(false);
+
+    if (res.user?.id) {
+      saveAuth(res.access_token, res.refresh_token, res.user);
+      onRegisterClose(false);
+      setIsAuthenticated(true);
+    }
   };
 
   return (
@@ -276,10 +292,11 @@ const RegisterModal = ({
                   color="danger"
                   variant="flat"
                   onClick={() => onRegisterClose(false)}
+                  disabled={isFetching}
                 >
                   Close
                 </Button>
-                <Button type="submit" color="primary">
+                <Button type="submit" color="primary" disabled={isFetching}>
                   Submit
                 </Button>
               </ModalFooter>
@@ -292,3 +309,6 @@ const RegisterModal = ({
 };
 
 export default RegisterModal;
+function useContext(AuthContext: any): { setIsAuthenticated: any } {
+  throw new Error('Function not implemented.');
+}

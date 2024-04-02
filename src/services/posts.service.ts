@@ -1,5 +1,5 @@
 import { config } from '@/constants/config';
-import { apiClientBrowser } from './base.service';
+import { apiClientBrowser, handleException } from './base.service';
 import { FetchPostsResponse, Post, PostFilterParams } from '@/types/posts.type';
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@/constants/common';
 
@@ -28,7 +28,7 @@ export async function fetchPosts(
       hasMore,
     };
   } catch (err) {
-    console.error(err);
+    handleException(err);
     return {
       posts: [],
       hasMore: false,

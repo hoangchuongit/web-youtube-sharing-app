@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@nextui-org/react';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { MailIcon } from '../ui/MailIcon';
 import { EyeSlashFilledIcon } from '../ui/EyeSlashFilledIcon';
 import { EyeFilledIcon } from '../ui/EyeFilledIcon';
@@ -17,6 +17,9 @@ import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../auth/AuthModal.css';
+import { login } from '@/services/auth.service';
+import { saveAuth } from '@/cookies/user.cookies';
+import { AuthContext } from '@/contexts/auth-context';
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -25,7 +28,10 @@ type LoginModalProps = {
 };
 
 const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
+  const { setIsAuthenticated } = useContext(AuthContext);
+
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
   const formSchema = Yup.object().shape({
     email: Yup.string().required('Email Address is required'),
@@ -41,10 +47,6 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
     formState: { errors },
   } = useForm(formOptions);
 
-  const onRegisterRedirect = () => {
-    onLoginClose(true);
-  };
-
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const onLoginClose = (isRegisterOpen?: boolean) => {
@@ -53,8 +55,20 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
   };
 
   const onSubmit = async (data: any) => {
-    console.log(data);
-    onLoginClose(false);
+    setIsFetching(true);
+
+    const res = await login({
+      email: data.email,
+      password: data.password,
+    });
+
+    setIsFetching(false);
+
+    if (res.user?.id) {
+      saveAuth(res.access_token, res.refresh_token, res.user);
+      onLoginClose(false);
+      setIsAuthenticated(true);
+    }
   };
 
   return (
@@ -158,10 +172,11 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
                   color="danger"
                   variant="flat"
                   onClick={() => onLoginClose(false)}
+                  disabled={isFetching}
                 >
                   Close
                 </Button>
-                <Button type="submit" color="primary">
+                <Button type="submit" color="primary" disabled={isFetching}>
                   Login
                 </Button>
               </ModalFooter>
