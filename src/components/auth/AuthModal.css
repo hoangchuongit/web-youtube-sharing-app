@@ -1,0 +1,13 @@
+p.rect-hook-form-error {
+  color: #bf1650;
+  font-size: 12px;
+}
+
+p.rect-hook-form-error::before {
+  display: inline;
+  content: '⚠ ';
+}
+
+button[aria-label='Close'] {
+  display: none;
+}

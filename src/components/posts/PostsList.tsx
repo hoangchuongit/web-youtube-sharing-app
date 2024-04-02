@@ -55,7 +55,7 @@ const PostsList = () => {
     //     </p>
     //   }
     // >
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto">
       {postList.map((post) => (
         <PostsListItem key={post.id} post={post} />
       ))}

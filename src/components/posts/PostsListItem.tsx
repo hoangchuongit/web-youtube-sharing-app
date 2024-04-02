@@ -1,6 +1,6 @@
 import { Post } from '@/types/posts.type';
 import React from 'react';
-import { YoutubeIframe } from '../YoutubeIframe';
+import { YoutubeIframe } from '../iframes/YoutubeIframe';
 
 type PostsListItemProps = {
   post: Post;
