@@ -9,11 +9,9 @@ export async function login({
   password,
 }: LoginParams): Promise<AuthResponse> {
   try {
-    const res = await apiClientBrowser.get(`${authApiPath}/login`, {
-      params: {
-        email,
-        password,
-      },
+    const res = await apiClientBrowser.post(`${authApiPath}/login`, {
+      email,
+      password,
     });
 
     if (!res?.data) {
@@ -32,11 +30,12 @@ export async function login({
   }
 }
 
-export async function register(params: RegisterParams): Promise<AuthResponse> {
+export async function registerUser(
+  params: RegisterParams,
+): Promise<AuthResponse> {
   try {
-    const res = await apiClientBrowser.get(`${authApiPath}/register`, {
-      params,
-    });
+    console.log(params);
+    const res = await apiClientBrowser.post(`${authApiPath}/register`, params);
 
     if (!res?.data) {
       console.log(res);

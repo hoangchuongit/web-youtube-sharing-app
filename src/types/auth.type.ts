@@ -8,7 +8,6 @@ export interface RegisterParams {
   firstName: string;
   lastName: string;
   password: string;
-  confirmPassword: string;
 }
 
 export interface AuthUserResponse {
