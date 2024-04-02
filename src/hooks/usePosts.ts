@@ -7,7 +7,7 @@ import { Post, PostFilterParams } from '@/types/posts.type';
 import { Bounce, toast } from 'react-toastify';
 import { uniqBy } from 'lodash';
 
-const socket = io(config.apiBaseUrl as string);
+const socket = io(config.apiBaseUrl as string, { autoConnect: false });
 
 const usePosts = ({ page, perPage }: PostFilterParams) => {
   const [postList, setPostList] = useState<Post[]>([]);
@@ -24,6 +24,24 @@ const usePosts = ({ page, perPage }: PostFilterParams) => {
     setHasListMore(hasMore);
   };
 
+  const handleMessage = ({ title, user }: Post) => {
+    const msg = `${user.fullName} just shared a new video: ${title}`;
+
+    toast.info(msg, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+      transition: Bounce,
+    });
+
+    getAllPosts();
+  };
+
   //   responseable to fetch intital data through api.
   useEffect(() => {
     getAllPosts();
@@ -31,27 +49,14 @@ const usePosts = ({ page, perPage }: PostFilterParams) => {
 
   //   subscribes to realtime updates when post is added on server.
   useEffect(() => {
-    const handleMessage = ({ title, user }: Post) => {
-      const msg = `${user.fullName} just shared a new video: ${title}`;
+    socket.connect();
 
-      toast.info(msg, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-        transition: Bounce,
-      });
+    socket.on(NEW_SHARED_VIDEO, (newData: Post) => handleMessage(newData));
 
-      getAllPosts();
+    return () => {
+      socket.off(NEW_SHARED_VIDEO, handleMessage);
+      socket.disconnect();
     };
-
-    socket.on(NEW_SHARED_VIDEO, (newData: Post) => {
-      handleMessage(newData);
-    });
   }, []);
 
   return {
