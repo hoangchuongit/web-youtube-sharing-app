@@ -11,3 +11,8 @@ p.rect-hook-form-error::before {
 button[aria-label='Close'] {
   display: none;
 }
+
+button:disabled,
+button[disabled] {
+  opacity: 0.6;
+}

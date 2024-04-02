@@ -1,6 +1,6 @@
 import { ACCESS_TOKEN, LOGINED_USER, REFRESH_TOKEN } from '@/constants/cookies';
+import { apiClientBrowser } from '@/services/base.service';
 import { AuthUserResponse } from '@/types/auth.type';
-import axios from 'axios';
 import { getCookie, setCookie } from 'react-use-cookie';
 
 export const setupIsAuthenticated = (): boolean => {
@@ -8,7 +8,7 @@ export const setupIsAuthenticated = (): boolean => {
   const token = getCookie(ACCESS_TOKEN);
 
   if (token) {
-    axios.defaults.headers['Authorization'] = 'Bearer ' + token;
+    apiClientBrowser.defaults.headers['Authorization'] = 'Bearer ' + token;
     return true;
   }
   return false;

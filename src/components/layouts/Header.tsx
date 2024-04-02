@@ -5,6 +5,7 @@ import LoginModal from '../login/LoginModal';
 import RegisterModal from '../register/RegisterModal';
 import { AuthContext } from '@/contexts/auth-context';
 import { clearAuth, getLoginedUser } from '@/cookies/user.cookies';
+import ShareMovieModal from '../posts/ShareMovieModal';
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Header = () => {
   const { onOpen, onOpenChange } = useDisclosure();
   const [isOpen, setIsOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isShareVideoOpen, setIsShareVideoOpen] = useState(false);
   const [user, setUser] = useState<any>({});
 
   const onAuthOpen = () => {
@@ -47,6 +49,14 @@ const Header = () => {
     clearAuth();
   };
 
+  const onShareVideo = () => {
+    setIsShareVideoOpen(true);
+  };
+
+  const onShareVideoClose = () => {
+    setIsShareVideoOpen(false);
+  };
+
   return (
     <>
       <div className="w-full max-w-7xl mx-auto flex flex-row justify-between items-center border-b-4 p-2">
@@ -68,7 +78,7 @@ const Header = () => {
               </h1>
 
               <div className="flex flex-row">
-                <Button className="mx-2" onClick={onAuthOpen} color="primary">
+                <Button className="mx-2" onClick={onShareVideo} color="primary">
                   Share a movie
                 </Button>
 
@@ -97,6 +107,12 @@ const Header = () => {
         isOpen={isRegisterOpen}
         onOpenChange={onOpenChange}
         onClose={onRegisterClose}
+      />
+
+      <ShareMovieModal
+        isOpen={isShareVideoOpen}
+        onOpenChange={onOpenChange}
+        onClose={onShareVideoClose}
       />
     </>
   );

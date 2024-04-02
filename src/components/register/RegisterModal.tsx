@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@nextui-org/react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { MailIcon } from '../ui/MailIcon';
 import { EyeSlashFilledIcon } from '../ui/EyeSlashFilledIcon';
 import { EyeFilledIcon } from '../ui/EyeFilledIcon';
@@ -309,6 +309,3 @@ const RegisterModal = ({
 };
 
 export default RegisterModal;
-function useContext(AuthContext: any): { setIsAuthenticated: any } {
-  throw new Error('Function not implemented.');
-}
