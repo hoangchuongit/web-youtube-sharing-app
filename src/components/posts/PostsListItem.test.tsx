@@ -7,20 +7,12 @@ import { getEmbedYoutubeLink } from '@/shared/helpers';
 
 describe('PostsListItem', () => {
   it('should render a post item', () => {
-    render(
-      <PostsListItem
-        post={postMock}
-      />,
-    );
+    render(<PostsListItem post={postMock} />);
     expect(screen.getByText(postMock.title)).toBeInTheDocument();
   });
 
   it('should render youtube iframe correctly', () => {
-    render(
-      <PostsListItem
-        post={postMock}
-      />,
-    );
+    render(<PostsListItem post={postMock} />);
     const iframe = screen.getByTitle(YOUTUBE_IFRAME_TITLE);
     expect(iframe).toHaveAttribute('src', getEmbedYoutubeLink(postMock.link));
   });

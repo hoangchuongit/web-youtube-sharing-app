@@ -6,9 +6,7 @@ import { NO_POST_AVAILABLE } from '@/constants/common';
 
 describe('PostsList', () => {
   it('should render a post list', () => {
-    render(
-      <PostsList />,
-    );
+    render(<PostsList />);
     expect(screen.getByText(NO_POST_AVAILABLE)).toBeInTheDocument();
   });
 });

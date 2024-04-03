@@ -16,11 +16,11 @@ describe('LoginModal', () => {
         onClose={onCloseMock}
       />,
     );
-    const form = screen.getByRole("form");
-    expect(form).toHaveAttribute("name", "login-form");
+    const form = screen.getByRole('form');
+    expect(form).toHaveAttribute('name', 'login-form');
   });
 
-  it("should display required error when value is invalid", async () => { 
+  it('should display required error when value is invalid', async () => {
     render(
       <LoginModal
         isOpen={true}
@@ -30,14 +30,14 @@ describe('LoginModal', () => {
     );
 
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: "Login" }));
+      fireEvent.click(screen.getByRole('button', { name: 'Login' }));
     });
-    
+
     expect(screen.getByText(EMAIL_REQUIRED)).toBeInTheDocument();
     expect(screen.getByText(PASSWORD_REQUIRED)).toBeInTheDocument();
-  })
+  });
 
-  it("should not display error when value is valid", async () => {
+  it('should not display error when value is valid', async () => {
     const logSpy = jest.spyOn(console, 'log');
 
     render(
@@ -47,8 +47,8 @@ describe('LoginModal', () => {
         onClose={onCloseMock}
       />,
     );
-  
-    fireEvent.input(screen.getByRole("textbox", { name: /email/i }), {
+
+    fireEvent.input(screen.getByRole('textbox', { name: /email/i }), {
       target: {
         value: registerParamsMock.email,
       },
@@ -58,12 +58,12 @@ describe('LoginModal', () => {
       target: {
         value: registerParamsMock.password,
       },
-    })
+    });
 
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: "Login" }));
+      fireEvent.click(screen.getByRole('button', { name: 'Login' }));
     });
-  
+
     expect(logSpy).toBeCalledWith('logining user');
-  })
+  });
 });

@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Web Youtube Sharing app
+Web of youtube sharing app. Built from NextJS 14.
 
-First, run the development server:
+Live mode: https://web-youtube-sharing-app-f64a1336af0b.herokuapp.com/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Server side live mode: https://api-youtube-sharing-app-ca0fd87f9983.herokuapp.com/docs
+username: admin
+password: admin
+Server side github: https://github.com/hoangchuongit/api-youtube-sharing-app
+
+## Features
+
+- User registration and login with JWT
+- Sharing YouTube videos
+- Real-time notifications for new video shares with Web socket
+
+## Tech Feature
+- Using Docker setup to run on local
+- Also include testing modules for all components You can try with the command below after setting the environment for the application:
+
+```sh
+yarn run test
+```
+![N|Solid](https://github.com/hoangchuongit/web-youtube-sharing-app/assets/24239781/5407617f-dc15-4153-b354-2beaf033d372)
+
+- In additional, use [Husky](https://typicode.github.io/husky/) to manage git commits
+- ![N|Solid](https://github.com/hoangchuongit/api-youtube-sharing-app/assets/24239781/ec00c362-f23e-47f6-b9bc-86557b4c022d)
+
+## Tech
+
+API Youtube Sharing app uses a number of open source projects to work properly:
+
+- [NextJS](https://nextjs.org/) - The React Framework for the Web
+- [Node.js](https://nodejs.org/) - evented I/O for the backend
+- [Yarn](https://yarnpkg.com/) - package manager that doubles down as project manager
+- [Visual Studio Code](https://code.visualstudio.com/download) - Code editing.Redefined. Free. Built on open source. Runs everywhere.
+- [Docker](https://www.docker.com/) - Accelerated Container Application Development
+
+## Installation
+
+API Youtube Sharing app requires [Node.js](https://nodejs.org/) v20+ and to run. Recommended to use version 20.12
+In addition, also need to install [Yarn](https://yarnpkg.com/) and [Docker](https://www.docker.com/) to develop the project.
+
+After install node you can install global packages.
+
+```sh
+npm install -g yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+After clone the project, please follow the steps to run it on your local:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Step 1: install the dependencies and devDependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```sh
+yarn install
+```
 
-## Learn More
+Step 2: Start docker composer and run on local:
+```sh
+docker compose up -d
+```
 
-To learn more about Next.js, take a look at the following resources:
+The above command will create a new Container as image:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![N|Solid](https://github.com/hoangchuongit/web-youtube-sharing-app/assets/24239781/40ef8c5e-d5e5-449f-b62a-9b1c823f6279)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+Web we run on host: http://localhost:3000
+![N|Solid](https://github.com/hoangchuongit/web-youtube-sharing-app/assets/24239781/0bf3411c-80e4-4cca-966c-51c3fbf52a55)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Installing the Server API here is recommended: https://github.com/hoangchongit/api-youtube-sharing-app for a good local experience.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Copyright ©2024.

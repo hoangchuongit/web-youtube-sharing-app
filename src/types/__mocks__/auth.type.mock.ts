@@ -8,15 +8,14 @@ export const authUserResponseMock: AuthUserResponse = {
   id: '66082b5a841b182aeaed4e67',
   email: 'johndoe@example.com',
   fullName: 'John Doe',
-
 };
 
 export const registerParamsMock: RegisterParams = {
   email: authUserResponseMock.email,
-password: '1232@asdS',
+  password: '1232@asdS',
   firstName: 'John',
   lastName: 'Doe',
-}
+};
 
 export const authResponseMock: AuthResponse = {
   access_token: mock_access_token,

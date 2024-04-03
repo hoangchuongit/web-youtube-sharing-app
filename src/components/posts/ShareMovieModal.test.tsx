@@ -17,11 +17,11 @@ describe('ShareMovieModal', () => {
         onClose={onCloseMock}
       />,
     );
-    const form = screen.getByRole("form");
-    expect(form).toHaveAttribute("name", "share-movie-form");
+    const form = screen.getByRole('form');
+    expect(form).toHaveAttribute('name', 'share-movie-form');
   });
 
-  it("should display required error when value is invalid", async () => { 
+  it('should display required error when value is invalid', async () => {
     render(
       <ShareMovieModal
         isOpen={true}
@@ -31,13 +31,13 @@ describe('ShareMovieModal', () => {
     );
 
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: "Share" }));
+      fireEvent.click(screen.getByRole('button', { name: 'Share' }));
     });
-    
+
     expect(screen.getByText(LINK_REQUIRED)).toBeInTheDocument();
-  })
+  });
 
-  it("should display matching error when link is invalid", async () => {
+  it('should display matching error when link is invalid', async () => {
     render(
       <ShareMovieModal
         isOpen={true}
@@ -46,19 +46,19 @@ describe('ShareMovieModal', () => {
       />,
     );
 
-      fireEvent.input(screen.getByRole("textbox", { name: /link/i }), {
-        target: {
-          value: linkWrongFormatMock,
-        },
-      })
-    await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: "Share" }));
+    fireEvent.input(screen.getByRole('textbox', { name: /link/i }), {
+      target: {
+        value: linkWrongFormatMock,
+      },
     });
-  
-    expect(screen.getByText(LINK_WRONG_FORMAT)).toBeInTheDocument();
-  })
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'Share' }));
+    });
 
-  it("should not display error when value is valid", async () => {
+    expect(screen.getByText(LINK_WRONG_FORMAT)).toBeInTheDocument();
+  });
+
+  it('should not display error when value is valid', async () => {
     const logSpy = jest.spyOn(console, 'log');
 
     render(
@@ -68,17 +68,17 @@ describe('ShareMovieModal', () => {
         onClose={onCloseMock}
       />,
     );
-  
-    fireEvent.input(screen.getByRole("textbox", { name: /link/i }), {
+
+    fireEvent.input(screen.getByRole('textbox', { name: /link/i }), {
       target: {
         value: postMock.link,
       },
     });
 
     await act(async () => {
-      fireEvent.click(screen.getByRole("button", { name: "Share" }));
+      fireEvent.click(screen.getByRole('button', { name: 'Share' }));
     });
-  
+
     expect(logSpy).toBeCalledWith('sharing video');
-  })
+  });
 });

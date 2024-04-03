@@ -4,7 +4,11 @@ import useWindowSize from '@/hooks/useWindowSize';
 import React, { useEffect, useState } from 'react';
 import PostsListItem from './PostsListItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { DEFAULT_MAX_PER_PAGE, DEFAULT_PAGE, NO_POST_AVAILABLE } from '@/constants/common';
+import {
+  DEFAULT_MAX_PER_PAGE,
+  DEFAULT_PAGE,
+  NO_POST_AVAILABLE,
+} from '@/constants/common';
 
 const PostsList = () => {
   const size = useWindowSize();

@@ -20,7 +20,18 @@ import '../auth/AuthModal.css';
 import { registerUser } from '@/services/auth.service';
 import { saveAuth } from '@/cookies/user.cookies';
 import { AuthContext } from '@/contexts/auth-context';
-import { EMAIL_MAX_LENGTH, EMAIL_REQUIRED, EMAIL_WRONG_FORMAT, FIRST_NAME_MAX_LENGTH, FIRST_NAME_REQUIRED, LAST_NAME_MAX_LENGTH, LAST_NAME_REQUIRED, PASSWORD_MIN_LENGTH, PASSWORD_NOT_MATCHED, PASSWORD_REQUIRED } from '@/constants/errors';
+import {
+  EMAIL_MAX_LENGTH,
+  EMAIL_REQUIRED,
+  EMAIL_WRONG_FORMAT,
+  FIRST_NAME_MAX_LENGTH,
+  FIRST_NAME_REQUIRED,
+  LAST_NAME_MAX_LENGTH,
+  LAST_NAME_REQUIRED,
+  PASSWORD_MIN_LENGTH,
+  PASSWORD_NOT_MATCHED,
+  PASSWORD_REQUIRED,
+} from '@/constants/errors';
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -43,10 +54,7 @@ const RegisterModal = ({
     email: Yup.string()
       .required(EMAIL_REQUIRED)
       .max(50, EMAIL_MAX_LENGTH)
-      .matches(
-        /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-        EMAIL_WRONG_FORMAT,
-      ),
+      .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, EMAIL_WRONG_FORMAT),
     firstName: Yup.string()
       .required(FIRST_NAME_REQUIRED)
       .max(50, FIRST_NAME_MAX_LENGTH),
@@ -147,7 +155,7 @@ const RegisterModal = ({
                 />
 
                 <Input
-                data-testid={'register-first-name'}
+                  data-testid={'register-first-name'}
                   {...register('firstName')}
                   label="First name"
                   placeholder="Enter your first name"
@@ -174,7 +182,7 @@ const RegisterModal = ({
                 />
 
                 <Input
-                data-testid={'register-last-name'}
+                  data-testid={'register-last-name'}
                   {...register('lastName')}
                   label="Last name"
                   placeholder="Enter your last name"
@@ -242,7 +250,7 @@ const RegisterModal = ({
                 />
 
                 <Input
-                data-testid={'register-confirm-password'}
+                  data-testid={'register-confirm-password'}
                   {...register('confirmPassword')}
                   endContent={
                     <button
