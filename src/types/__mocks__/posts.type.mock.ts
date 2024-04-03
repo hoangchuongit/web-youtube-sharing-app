@@ -19,3 +19,18 @@ export const fetchPostsResponseMock: FetchPostsResponse = {
   posts: [postMock],
   hasMore: false,
 };
+
+export const fetchPostsWrongResponse = {
+  posts: [],
+  hasMore: false,
+};
+
+export const postWrongResponse: Post = {
+  id: '',
+  title: '',
+  link: '',
+  user: {
+    id: '',
+    fullName: '',
+  },
+};

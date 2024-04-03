@@ -22,7 +22,12 @@ Server side github: https://github.com/hoangchuongit/api-youtube-sharing-app
 ```sh
 yarn run test
 ```
-![N|Solid](https://github.com/hoangchuongit/web-youtube-sharing-app/assets/24239781/5407617f-dc15-4153-b354-2beaf033d372)
+![N|Solid](https://github.com/hoangchuongit/web-youtube-sharing-app/assets/24239781/8ec2eaa1-85fb-4fd0-8535-cbc48f830768)
+
+```sh
+yarn run test:cov
+```
+![N|Solid](https://github.com/hoangchuongit/web-youtube-sharing-app/assets/24239781/19cff12f-0815-42da-92fa-eabe5ae5262e)
 
 - In additional, use [Husky](https://typicode.github.io/husky/) to manage git commits
 - ![N|Solid](https://github.com/hoangchuongit/api-youtube-sharing-app/assets/24239781/ec00c362-f23e-47f6-b9bc-86557b4c022d)

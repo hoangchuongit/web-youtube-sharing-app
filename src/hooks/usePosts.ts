@@ -12,8 +12,10 @@ const socket = io(config.apiBaseUrl as string, { autoConnect: false });
 const usePosts = ({ page, perPage }: PostFilterParams) => {
   const [postList, setPostList] = useState<Post[]>([]);
   const [hasListMore, setHasListMore] = useState<boolean>(false);
+  const [isFetching, setFetching] = useState<boolean>(true);
 
   const getAllPosts = async () => {
+    setFetching(true);
     const { posts, hasMore } = await fetchPosts({ page, perPage });
 
     setPostList((prevPostList) => {
@@ -22,6 +24,7 @@ const usePosts = ({ page, perPage }: PostFilterParams) => {
       return newPostList;
     });
     setHasListMore(hasMore);
+    setFetching(false);
   };
 
   const handleMessage = ({ title, user }: Post) => {
@@ -62,6 +65,7 @@ const usePosts = ({ page, perPage }: PostFilterParams) => {
   return {
     postList,
     hasListMore,
+    isFetching,
   };
 };
 

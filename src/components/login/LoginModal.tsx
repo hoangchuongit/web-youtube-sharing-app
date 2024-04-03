@@ -84,7 +84,11 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
       >
         <ModalContent>
           {(onClose) => (
-            <form name="login-form" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              data-testId="login-form"
+              name="login-form"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <ModalHeader className="flex flex-col gap-1">Login</ModalHeader>
               <ModalBody>
                 <Input
@@ -119,7 +123,7 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
                 />
 
                 <Input
-                  data-testid={'login-password'}
+                  data-testId={'login-password'}
                   {...register('password')}
                   endContent={
                     <button
@@ -172,6 +176,7 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
               </ModalBody>
               <ModalFooter>
                 <Button
+                  data-testId={'login-close-btn'}
                   color="danger"
                   variant="flat"
                   onClick={() => onLoginClose(false)}

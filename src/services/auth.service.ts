@@ -1,8 +1,9 @@
 import { config } from '@/constants/config';
 import { apiClientBrowser, handleException } from './base.service';
 import { AuthResponse, LoginParams, RegisterParams } from '@/types/auth.type';
+import { authFailedResponse } from '@/types/__mocks__/auth.type.mock';
 
-const authApiPath = `${config.apiBaseUrl}/auth`;
+export const authApiPath = `${config.apiBaseUrl}/auth`;
 
 export async function login({
   email,
@@ -22,11 +23,7 @@ export async function login({
     return res?.data;
   } catch (err) {
     handleException(err);
-    return {
-      access_token: '',
-      refresh_token: '',
-      user: undefined,
-    };
+    return authFailedResponse;
   }
 }
 
@@ -44,10 +41,6 @@ export async function registerUser(
     return res?.data;
   } catch (err: any) {
     handleException(err);
-    return {
-      access_token: '',
-      refresh_token: '',
-      user: undefined,
-    };
+    return authFailedResponse;
   }
 }

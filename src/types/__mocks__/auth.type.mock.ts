@@ -22,3 +22,15 @@ export const authResponseMock: AuthResponse = {
   refresh_token: mock_refresh_token,
   user: authUserResponseMock,
 };
+
+export const authFailedResponse: AuthResponse = {
+  access_token: '',
+  refresh_token: '',
+  user: undefined,
+};
+
+export const authWrongCredentialsResponseMock = {
+  message: 'Wrong credentials!!',
+  error: 'Bad Request',
+  statusCode: 400,
+};

@@ -118,7 +118,11 @@ const RegisterModal = ({
       >
         <ModalContent>
           {(onClose) => (
-            <form name="register-form" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              data-testId="register-close-btn"
+              name="register-form"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <ModalHeader className="flex flex-col gap-1">
                 Register
               </ModalHeader>
@@ -155,7 +159,7 @@ const RegisterModal = ({
                 />
 
                 <Input
-                  data-testid={'register-first-name'}
+                  data-testId={'register-first-name'}
                   {...register('firstName')}
                   label="First name"
                   placeholder="Enter your first name"
@@ -182,7 +186,7 @@ const RegisterModal = ({
                 />
 
                 <Input
-                  data-testid={'register-last-name'}
+                  data-testId={'register-last-name'}
                   {...register('lastName')}
                   label="Last name"
                   placeholder="Enter your last name"
@@ -209,7 +213,7 @@ const RegisterModal = ({
                 />
 
                 <Input
-                  data-testid={'register-password'}
+                  data-testId={'register-password'}
                   {...register('password')}
                   endContent={
                     <button
@@ -250,7 +254,7 @@ const RegisterModal = ({
                 />
 
                 <Input
-                  data-testid={'register-confirm-password'}
+                  data-testId={'register-confirm-password'}
                   {...register('confirmPassword')}
                   endContent={
                     <button

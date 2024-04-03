@@ -2,8 +2,12 @@ import { config } from '@/constants/config';
 import { apiClientBrowser, handleException } from './base.service';
 import { FetchPostsResponse, Post, PostFilterParams } from '@/types/posts.type';
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@/constants/common';
+import {
+  fetchPostsWrongResponse,
+  postWrongResponse,
+} from '@/types/__mocks__/posts.type.mock';
 
-const postsApiPath = `${config.apiBaseUrl}/posts`;
+export const postsApiPath = `${config.apiBaseUrl}/posts`;
 
 export async function fetchPosts(
   filter?: PostFilterParams,
@@ -19,20 +23,13 @@ export async function fetchPosts(
     const hasMore = res?.data?.hasMore || false;
     let posts: Post[] = [];
 
-    if (res?.data?.items) {
-      posts = res?.data.items;
-    }
-
     return {
-      posts,
+      posts: res?.data?.items || posts,
       hasMore,
     };
   } catch (err) {
     handleException(err);
-    return {
-      posts: [],
-      hasMore: false,
-    };
+    return fetchPostsWrongResponse;
   }
 }
 
@@ -50,14 +47,6 @@ export async function shareVideo(link: string): Promise<Post> {
     return res?.data;
   } catch (err: any) {
     handleException(err);
-    return {
-      id: '',
-      title: '',
-      link: '',
-      user: {
-        id: '',
-        fullName: '',
-      },
-    };
+    return postWrongResponse;
   }
 }

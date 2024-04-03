@@ -66,4 +66,20 @@ describe('LoginModal', () => {
 
     expect(logSpy).toBeCalledWith('logining user');
   });
+
+  it('should close login modal when click to close button on login modal', async () => {
+    render(
+      <LoginModal
+        isOpen={true}
+        onOpenChange={onOpenChangeMock}
+        onClose={onCloseMock}
+      />,
+    );
+
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('login-close-btn'));
+    });
+
+    expect(onCloseMock).toHaveBeenCalled();
+  });
 });
