@@ -1,4 +1,6 @@
+import { YOUTUBE_IFRAME_TITLE } from '@/constants/testing';
 import useWindowSize from '@/hooks/useWindowSize';
+import { getEmbedYoutubeLink } from '@/shared/helpers';
 import React from 'react';
 
 type YoutubeIframeProps = {
@@ -18,7 +20,8 @@ export const YoutubeIframe = ({ link }: YoutubeIframeProps) => {
 
   return (
     <iframe
-      src={link.replace('watch?v=', 'embed/')}
+      title={YOUTUBE_IFRAME_TITLE}
+      src={getEmbedYoutubeLink(link)}
       width={iframeWidth}
       height={iframeHeight}
     ></iframe>

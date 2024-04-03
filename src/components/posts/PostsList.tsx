@@ -4,7 +4,7 @@ import useWindowSize from '@/hooks/useWindowSize';
 import React, { useEffect, useState } from 'react';
 import PostsListItem from './PostsListItem';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { DEFAULT_MAX_PER_PAGE, DEFAULT_PAGE } from '@/constants/common';
+import { DEFAULT_MAX_PER_PAGE, DEFAULT_PAGE, NO_POST_AVAILABLE } from '@/constants/common';
 
 const PostsList = () => {
   const size = useWindowSize();
@@ -62,7 +62,7 @@ const PostsList = () => {
 
       {postList.length === 0 && (
         <p className="text-lg text-gray-800 tracking-wide text-center">
-          <b>No shared video available. Please login to share new video</b>
+          <b>{NO_POST_AVAILABLE}</b>
         </p>
       )}
     </div>

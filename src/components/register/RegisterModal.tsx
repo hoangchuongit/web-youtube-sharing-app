@@ -20,6 +20,7 @@ import '../auth/AuthModal.css';
 import { registerUser } from '@/services/auth.service';
 import { saveAuth } from '@/cookies/user.cookies';
 import { AuthContext } from '@/contexts/auth-context';
+import { EMAIL_MAX_LENGTH, EMAIL_REQUIRED, EMAIL_WRONG_FORMAT, FIRST_NAME_MAX_LENGTH, FIRST_NAME_REQUIRED, LAST_NAME_MAX_LENGTH, LAST_NAME_REQUIRED, PASSWORD_MIN_LENGTH, PASSWORD_NOT_MATCHED, PASSWORD_REQUIRED } from '@/constants/errors';
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -40,24 +41,24 @@ const RegisterModal = ({
 
   const formSchema = Yup.object().shape({
     email: Yup.string()
-      .required('Email Address is required')
-      .max(50, 'Email must not exceed 50 characters')
+      .required(EMAIL_REQUIRED)
+      .max(50, EMAIL_MAX_LENGTH)
       .matches(
         /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
-        'Entered value does not match email format',
+        EMAIL_WRONG_FORMAT,
       ),
     firstName: Yup.string()
-      .required('First name is required')
-      .max(50, 'First name must not exceed 50 characters'),
+      .required(FIRST_NAME_REQUIRED)
+      .max(50, FIRST_NAME_MAX_LENGTH),
     lastName: Yup.string()
-      .required('Last name is required')
-      .max(50, 'Last name must not exceed 50 characters'),
+      .required(LAST_NAME_REQUIRED)
+      .max(50, LAST_NAME_MAX_LENGTH),
     password: Yup.string()
-      .required('Password is required')
-      .min(8, 'Password must be at 8 char long'),
+      .required(PASSWORD_REQUIRED)
+      .min(8, PASSWORD_MIN_LENGTH),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref('password')],
-      'Passwords does not match',
+      PASSWORD_NOT_MATCHED,
     ),
   });
 
@@ -79,6 +80,7 @@ const RegisterModal = ({
 
   const onSubmit = async (data: any) => {
     setIsFetching(true);
+    console.log('registering user');
 
     const res = await registerUser({
       email: data.email,
@@ -108,7 +110,7 @@ const RegisterModal = ({
       >
         <ModalContent>
           {(onClose) => (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form name="register-form" onSubmit={handleSubmit(onSubmit)}>
               <ModalHeader className="flex flex-col gap-1">
                 Register
               </ModalHeader>
@@ -145,6 +147,7 @@ const RegisterModal = ({
                 />
 
                 <Input
+                data-testid={'register-first-name'}
                   {...register('firstName')}
                   label="First name"
                   placeholder="Enter your first name"
@@ -171,6 +174,7 @@ const RegisterModal = ({
                 />
 
                 <Input
+                data-testid={'register-last-name'}
                   {...register('lastName')}
                   label="Last name"
                   placeholder="Enter your last name"
@@ -197,6 +201,7 @@ const RegisterModal = ({
                 />
 
                 <Input
+                  data-testid={'register-password'}
                   {...register('password')}
                   endContent={
                     <button
@@ -237,6 +242,7 @@ const RegisterModal = ({
                 />
 
                 <Input
+                data-testid={'register-confirm-password'}
                   {...register('confirmPassword')}
                   endContent={
                     <button
@@ -279,7 +285,7 @@ const RegisterModal = ({
                 <div className="flex py-2 px-1 justify-between">
                   <Link
                     color="primary"
-                    href="javascript:void(0)"
+                    href="#javascript"
                     size="sm"
                     onClick={() => onRegisterClose(true)}
                   >

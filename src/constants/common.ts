@@ -7,3 +7,5 @@ export const REGISTER_TITLE = 'Register';
 
 export const SERVER_ERROR =
   'Some error occurred. please contact your system administrator';
+
+export const NO_POST_AVAILABLE = 'No shared video available. Please login to share new video';

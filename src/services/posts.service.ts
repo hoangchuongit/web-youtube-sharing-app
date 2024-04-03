@@ -2,9 +2,6 @@ import { config } from '@/constants/config';
 import { apiClientBrowser, handleException } from './base.service';
 import { FetchPostsResponse, Post, PostFilterParams } from '@/types/posts.type';
 import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from '@/constants/common';
-import { getCookie } from 'react-use-cookie';
-import { ACCESS_TOKEN } from '@/constants/cookies';
-import axios from 'axios';
 
 const postsApiPath = `${config.apiBaseUrl}/posts`;
 

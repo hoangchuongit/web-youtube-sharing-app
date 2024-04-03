@@ -1,9 +1,9 @@
-import Home from '@/app/page';
 import { render, screen } from '@testing-library/react';
+import Header from './Header';
 
-describe('Home', () => {
+describe('Header', () => {
   it('renders a heading', () => {
-    render(<Home />);
+    render(<Header />);
 
     const heading = screen.getByRole('heading', {
       name: 'Youtube sharing',
@@ -12,4 +12,3 @@ describe('Home', () => {
     expect(heading).toBeInTheDocument();
   });
 });
-

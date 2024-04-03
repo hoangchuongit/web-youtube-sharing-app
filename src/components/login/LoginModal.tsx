@@ -20,6 +20,7 @@ import '../auth/AuthModal.css';
 import { login } from '@/services/auth.service';
 import { saveAuth } from '@/cookies/user.cookies';
 import { AuthContext } from '@/contexts/auth-context';
+import { EMAIL_REQUIRED, PASSWORD_REQUIRED } from '@/constants/errors';
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -34,8 +35,8 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
   const [isFetching, setIsFetching] = useState(false);
 
   const formSchema = Yup.object().shape({
-    email: Yup.string().required('Email Address is required'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string().required(EMAIL_REQUIRED),
+    password: Yup.string().required(PASSWORD_REQUIRED),
   });
 
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -56,6 +57,7 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
 
   const onSubmit = async (data: any) => {
     setIsFetching(true);
+    console.log('logining user');
 
     const res = await login({
       email: data.email,
@@ -82,7 +84,7 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
       >
         <ModalContent>
           {(onClose) => (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form name="login-form" onSubmit={handleSubmit(onSubmit)}>
               <ModalHeader className="flex flex-col gap-1">Login</ModalHeader>
               <ModalBody>
                 <Input
@@ -117,6 +119,7 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
                 />
 
                 <Input
+                  data-testid={'login-password'}
                   {...register('password')}
                   endContent={
                     <button
@@ -159,7 +162,7 @@ const LoginModal = ({ isOpen, onOpenChange, onClose }: LoginModalProps) => {
                 <div className="flex py-2 px-1 justify-between">
                   <Link
                     color="primary"
-                    href="javascript:void(0)"
+                    href="#javascript"
                     size="sm"
                     onClick={() => onLoginClose(true)}
                   >

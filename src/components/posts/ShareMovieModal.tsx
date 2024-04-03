@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import '../auth/AuthModal.css';
 import { shareVideo } from '@/services/posts.service';
+import { LINK_REQUIRED, LINK_WRONG_FORMAT } from '@/constants/errors';
 
 type ShareMovieModalProps = {
   isOpen: boolean;
@@ -30,10 +31,10 @@ const ShareMovieModal = ({
 
   const formSchema = Yup.object().shape({
     link: Yup.string()
-      .required('Link is required')
+      .required(LINK_REQUIRED)
       .matches(
         /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/,
-        'The youtube link is not valid',
+        LINK_WRONG_FORMAT,
       ),
   });
 
@@ -53,6 +54,7 @@ const ShareMovieModal = ({
 
   const onSubmit = async (data: any) => {
     setIsFetching(true);
+    console.log('sharing video');
     const res = await shareVideo(data.link);
     setIsFetching(false);
     if (res?.id) {
@@ -71,7 +73,7 @@ const ShareMovieModal = ({
       >
         <ModalContent>
           {(onClose) => (
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form name="share-movie-form" onSubmit={handleSubmit(onSubmit)}>
               <ModalHeader className="flex flex-col gap-1">
                 Share new video
               </ModalHeader>

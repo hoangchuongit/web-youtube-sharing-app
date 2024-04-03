@@ -6,7 +6,9 @@
   ],
   "rules": {
     "@next/next/no-img-element": "off",
-    "react/jsx-no-undef": "off"
+    "react/jsx-no-undef": "off",
+    "testing-library/no-render-in-lifecycle": "off",
+    "testing-library/no-unnecessary-act": "off"
   }
 }
   

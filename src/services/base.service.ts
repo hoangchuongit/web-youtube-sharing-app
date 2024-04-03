@@ -10,7 +10,6 @@ import { Bounce, toast } from 'react-toastify';
 export const apiClientBrowser = axios.create();
 
 export const handleException = (err: any) => {
-  console.error(err);
   let msg = SERVER_ERROR;
   const messages = err?.response?.data?.message;
 

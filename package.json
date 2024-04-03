@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --config ./.prettierrc --write \"src/**/*.ts\"",
+    "format": "prettier --config ./.prettierrc --write \"src/**/*.ts\" \"src/**/*.tsx\"",
     "test": "jest",
     "test:watch": "jest --detectOpenHandles --watch",
     "test:cov": "jest --coverage",

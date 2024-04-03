@@ -1,0 +1,12 @@
+export const EMAIL_REQUIRED = 'Email Address is required';
+export const PASSWORD_REQUIRED = 'Password is required';
+export const FIRST_NAME_REQUIRED = 'First name is required';
+export const LAST_NAME_REQUIRED = 'Last name is required';
+export const PASSWORD_NOT_MATCHED = 'Passwords does not match';
+export const EMAIL_WRONG_FORMAT = 'Entered value does not match email format';
+export const PASSWORD_MIN_LENGTH = 'Password must be at 8 char long';
+export const EMAIL_MAX_LENGTH = 'Email must not exceed 50 characters';
+export const FIRST_NAME_MAX_LENGTH = 'First name must not exceed 50 characters';
+export const LAST_NAME_MAX_LENGTH = 'Last name must not exceed 50 characters';
+export const LINK_REQUIRED = 'Link is required';
+export const LINK_WRONG_FORMAT = 'The youtube link is not valid';
