@@ -14,12 +14,6 @@ export async function login({
       email,
       password,
     });
-
-    if (!res?.data) {
-      console.log(res);
-      console.log('Have some error');
-    }
-
     return res?.data;
   } catch (err) {
     handleException(err);
@@ -32,12 +26,6 @@ export async function registerUser(
 ): Promise<AuthResponse> {
   try {
     const res = await apiClientBrowser.post(`${authApiPath}/register`, params);
-
-    if (!res?.data) {
-      console.log(res);
-      console.log('Have some error');
-    }
-
     return res?.data;
   } catch (err: any) {
     handleException(err);

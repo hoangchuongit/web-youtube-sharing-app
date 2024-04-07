@@ -39,8 +39,6 @@ describe('login', () => {
       password: registerParamsMock.password,
     });
 
-    console.log(res);
-
     expect(res.access_token).toBe(authFailedResponse.access_token);
   });
 });

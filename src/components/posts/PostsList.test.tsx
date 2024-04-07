@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, renderHook, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import PostsList from './PostsList';
-import { NO_POST_AVAILABLE } from '@/constants/common';
 import {
   fetchPostsResponseMock,
   postMock,

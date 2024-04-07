@@ -19,13 +19,9 @@ export async function fetchPosts(
         perPage: filter?.perPage || DEFAULT_PER_PAGE,
       },
     });
-
-    const hasMore = res?.data?.hasMore || false;
-    let posts: Post[] = [];
-
     return {
-      posts: res?.data?.items || posts,
-      hasMore,
+      posts: res?.data?.items,
+      hasMore: res?.data?.hasMore,
     };
   } catch (err) {
     handleException(err);
@@ -38,12 +34,6 @@ export async function shareVideo(link: string): Promise<Post> {
     const res = await apiClientBrowser.post(`${postsApiPath}/share-youtube`, {
       link,
     });
-
-    if (!res?.data) {
-      console.log(res);
-      console.log('Have some error');
-    }
-
     return res?.data;
   } catch (err: any) {
     handleException(err);
