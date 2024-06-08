@@ -2,7 +2,7 @@
 # Web Youtube Sharing app
 Web of youtube sharing app. Built from NextJS 14.
 
-Live mode: https://web-youtube-sharing-app-f64a1336af0b.herokuapp.com/
+Live mode: https://web-youtube-sharing-app-production.up.railway.app
 
 Server side live mode: https://web-production-33daa.up.railway.app/docs
 username: admin
